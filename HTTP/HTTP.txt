@@ -1,0 +1,73 @@
+G
+et vs Post
+GET and POST are two different types of HTTP requests.
+GET is usually intended to retrieve data, and is expected to be idempotent (repeating the query does not have any side-effects) and can only send limited amounts of parameter data to the server. GET requests are often cached by default by some browsers if you are not careful.  
+POST is intended for changing the server state.  
+difference:
+GET requests can get cached by the browser which can be a problem (or benefit) when using ajax.
+Some browsers - IE in particular - will cache the results of a GET request. So if you, for example, poll using the same GET request you will always get back the same results, even if the data you are querying is being updated server-side.  
+ 
+GET requests expose parameters to users (POST does as well but they are less visible).
+A POST, unlike a GET, typically has relevant information in the body of the request. (A GET should not have a body, so aside from cookies, the only place to pass info is in the URL.)  
+ 
+POST can pass much more information to the server and can be of almost any length.
+POST lets you send much more information (as URLs are limited in length, for all practical purposes), and lets you send just about any type of data (file upload forms, for example, can't use GET -- they have to use POST plus a special content type/encoding).  
+ 
+Idempotent --- 幂等:
+幂等的概念是指同一个请求方法执行多次和仅执行一次的效果完全相同。按照RFC规范，PUT，DELETE和安全方法都是幂等的。同样，这也仅仅是规范，服务端实现是否幂等是无法确保的。引入幂等主要是为了处理同一个请求重复发送的情况，比如在请求响应前失去连接，如果方法是幂等的，就可以放心地重发一次请求。这也是浏览器在后退/刷新时遇到POST会给用户提示的原因：POST语义不是幂等的，重复请求可能会带来意想不到的后果.
+What happens when you type an URL in the browser and press enter?
+link:
+https://medium.com/@maneesha.wijesinghe1/what-happens-when-you-type-an-url-in-the-browser-and-press-enter-bb0aa2449c1a
+https://stackoverflow.com/questions/2092527/what-happens-when-you-type-in-a-url-in-browser
+https://segmentfault.com/a/1190000006879700
+The browser checks the cache for a DNS record to find the corresponding IP address of maps.google.com.  
+If the requested URL is not in the cache, ISP’s DNS server initiates a DNS query to find the IP address of the server that hosts maps.google.com.  
+Browser initiates a TCP connection with the server.  
+The browser sends an HTTP request to the web server.  
+The server handles the request and sends back a response.  
+The server sends out an HTTP response.  
+The browser displays the HTML content (for HTML responses which is the most common).  
+TCP/IP three-way handshake
+This is a three step process where the client and the server exchange SYN(synchronize) and ACK(acknowledge) messages to establish a connection.
+Client machine sends a SYN packet to the server over the internet asking if it is open for new connections.  
+If the server has open ports that can accept and initiate new connections, it’ll respond with an ACKnowledgment of the SYN packet using a SYN/ACK packet.  
+The client will receive the SYN/ACK packet from the server and will acknowledge it by sending an ACK packet.  
+Then a TCP connection is established for data transmission!
+sessionStorage, localStorage and Cookies
+link: https://stackoverflow.com/questions/19867599/what-is-the-difference-between-localstorage-sessionstorage-session-and-cookies
+sessionStorage, localStorage and Cookies all are used to store data on the client side. Each one has its own storage and expiration limit.
+localStorage: stores data with no expiration date, and gets cleared only through JavaScript, or clearing the Browser Cache / Locally Stored Data  
+sessionStorage: similar to localStorage but expires when the browser closed (not the tab).  
+Cookie: stores data that has to be sent back to the server with subsequent requests. Its expiration varies based on the type and the expiration duration can be set from either server-side or client-side (normally from server-side).  
+Cookies are primarily for server-side reading (can also be read on client-side), localStorage and sessionStorage can only be read on client-side. localStorage and sessionStorage are perfect for persisting non-sensitive data needed within client scripts between pages (for example: preferences, scores in games). Typically cookies are used to store identifying tokens for authentication, session and advertising tracking.
+Cross-site Scripting (XSS)
+link:
+https://www.acunetix.com/websitesecurity/cross-site-scripting/
+https://stackoverflow.com/questions/15755323/what-is-cross-site-scripting
+http://www.ruanyifeng.com/blog/2016/09/csp.html
+XSS vs CSRF
+xss：跨站点攻击。xss攻击的主要目的是想办法获取目标攻击网站的cookie，因为有了cookie相当于有了session，有了这些信息就可以在任意能接进互联网的PC登陆该网站，并以其他人的身份登陆做破坏。预防措施防止下发界面显示html标签，把等符号转义。csrf：跨站点伪装请求。csrf攻击的主要目的是让用户在不知情的情况下攻击自己已登录的一个系统，类似于钓鱼。如用户当前已经登陆了邮箱或bbs，同时用户又在使用另外一个，已经被你控制的网站，我们姑且叫它钓鱼网站。这个网站上面可能因为某个图片吸引你，你去点击一下，此时可能就会触发一个js的点击事件，构造一个bbs发帖的请求，去往你的bbs发帖，由于当前你的浏览器状态已经是登陆状态，所以session登陆cookie信息都会跟正常的请求一样，纯天然的利用当前的登陆状态，让用户在不知情的情况下，帮你发帖或干其他事情。预防措施，请求加入随机数，让钓鱼网站无法正常伪造请求。
+RESTful
+link:
+http://www.ruanyifeng.com/blog/2011/09/restful
+http://www.ruanyifeng.com/blog/2014/05/restful_api.html
+It stands for Representational State Transfer. It is a design concept (architecture) for managing state information. The basic idea of REST is treating objects on the server-side (as in rows in a database table) as resources than can be created or destroyed.
+MIME
+link:
+https://stackoverflow.com/questions/3828352/what-is-a-mime-type
+A MIME type is a label used to identify a type of data. It is used so software can know how to handle the data.
+DNS 原理入门
+link: http://www.ruanyifeng.com/blog/2016/06/dns.html
+有空读一下
+网站开发人员应该知道的62件事
+link:
+http://stackoverflow.com/questions/72394
+http://www.ruanyifeng.com/blog/2010/11/61_things_every_web_developer_should_know.html
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+apply 和 call的作用和区别
+array 和 object的区别
+map 和 forEach的区别
+DOM是什么数据结构
+节点数为n的balanced DOM tree，深度多少
+CSS + HTML，跟版上之前面经提到的题目很像，大图片右上角放一个小图片，但是题目要求是这俩图片都是链接，鼠标不放在图片上的时候只能看到大图，放上去之后才能看到小图。
+我刚开始写的是小图片{display:none;} :hover的时候才变成block， 经面试官提醒这样小图片完全不存在了不可能被点击到，我就说应该设置{invisibility: hidden;}这样图片还在只是隐藏了
